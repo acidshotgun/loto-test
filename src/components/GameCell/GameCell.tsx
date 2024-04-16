@@ -10,7 +10,13 @@ interface IGameCell {
 }
 
 export const GameCell = ({ value, typeAction, isChoose }: IGameCell) => {
-  const { dispatch } = useContext(GameContext);
+  const gameContext = useContext(GameContext);
+
+  if (!gameContext) {
+    return null;
+  }
+
+  const { dispatch } = gameContext;
 
   return (
     <button

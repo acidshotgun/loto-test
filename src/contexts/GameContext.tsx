@@ -9,10 +9,10 @@ interface IGameProvider {
 interface IGameContext {
   generatedNumbers: number[][];
   gameNumbers: number[][];
-  dispatch: Dispatch<{ type: string; payload?: number }>;
+  dispatch: Dispatch<{ type: string; payload: number }>;
 }
 
-export const GameContext = createContext<IGameContext>(null);
+export const GameContext = createContext<IGameContext | null>(null);
 
 const initialState: number[][] = [[], []];
 

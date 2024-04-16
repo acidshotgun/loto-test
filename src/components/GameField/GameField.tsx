@@ -17,7 +17,13 @@ export const GameField = ({
   needChoose,
   cellCount,
 }: IGameField) => {
-  const { gameNumbers } = useContext(GameContext);
+  const gameContext = useContext(GameContext);
+
+  if (!gameContext) {
+    return null;
+  }
+
+  const { gameNumbers } = gameContext;
 
   return (
     <div className={styles.container}>
