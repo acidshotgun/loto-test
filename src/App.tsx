@@ -7,7 +7,13 @@ import { useContext } from "react";
 import { GameContext } from "./contexts/GameContext";
 
 function App() {
-  const { dispatch } = useContext(GameContext);
+  const gameContext = useContext(GameContext);
+
+  if (!gameContext) {
+    return null;
+  }
+
+  const { dispatch } = gameContext;
 
   return (
     <div className={styles.container}>
@@ -19,6 +25,7 @@ function App() {
             onClick={() =>
               dispatch({
                 type: "GENERATE_RANDOM_NUMBERS",
+                payload: NaN,
               })
             }
           >
