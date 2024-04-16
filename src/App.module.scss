@@ -1,0 +1,31 @@
+.container {
+  min-width: 320px;
+  min-height: 603px;
+  padding: 17px 12px;
+  background-color: rgba(69, 104, 220, 1);
+  main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 14px 11px;
+    background-color: #fff;
+    border-radius: 3px;
+    .top {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      padding: 0 5px;
+      margin-bottom: 12px;
+      .button {
+        background-color: transparent;
+        cursor: pointer;
+        border: none;
+      }
+    }
+    .fields {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+  }
+}
