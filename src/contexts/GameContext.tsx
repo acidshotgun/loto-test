@@ -1,4 +1,10 @@
-import { createContext, Dispatch, ReactNode, useReducer } from "react";
+import {
+  createContext,
+  Dispatch,
+  ReactNode,
+  useReducer,
+  useState,
+} from "react";
 import { useGeneratedGameNumbers } from "../hooks/useGeneratedGameNumbers";
 import { generateRandomNumbers } from "../utils/generateRandomNumbers";
 
@@ -10,6 +16,16 @@ interface IGameContext {
   generatedNumbers: number[][];
   gameNumbers: number[][];
   dispatch: Dispatch<{ type: string; payload: number }>;
+  gameStatus: {
+    isEnd: boolean;
+    isWin: boolean;
+  };
+  setGameStatus: Dispatch<
+    React.SetStateAction<{
+      isEnd: boolean;
+      isWin: boolean;
+    }>
+  >;
 }
 
 export const GameContext = createContext<IGameContext | null>(null);
@@ -19,9 +35,21 @@ const initialState: number[][] = [[], []];
 export const GameProvider = ({ children }: IGameProvider) => {
   const generatedNumbers = useGeneratedGameNumbers();
   const [gameNumbers, dispatch] = useReducer(gameReducer, initialState);
+  const [gameStatus, setGameStatus] = useState({
+    isEnd: false,
+    isWin: false,
+  });
 
   return (
-    <GameContext.Provider value={{ generatedNumbers, gameNumbers, dispatch }}>
+    <GameContext.Provider
+      value={{
+        generatedNumbers,
+        gameNumbers,
+        dispatch,
+        gameStatus,
+        setGameStatus,
+      }}
+    >
       {children}
     </GameContext.Provider>
   );
@@ -58,6 +86,9 @@ const gameReducer = (
     }
     case "GENERATE_RANDOM_NUMBERS": {
       return [generateRandomNumbers(8, 19), generateRandomNumbers(1, 2)];
+    }
+    case "START_NEW_GAME": {
+      return [[], []];
     }
   }
   return gameNumbers;

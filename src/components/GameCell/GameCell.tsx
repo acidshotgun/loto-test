@@ -1,5 +1,4 @@
-import { useContext } from "react";
-import { GameContext } from "../../contexts/GameContext";
+import { useGameContext } from "../../hooks/useGameContext";
 
 import styles from "./GameCell.module.scss";
 
@@ -10,12 +9,7 @@ interface IGameCell {
 }
 
 export const GameCell = ({ value, typeAction, isChoose }: IGameCell) => {
-  const gameContext = useContext(GameContext);
-
-  if (!gameContext) {
-    return null;
-  }
-
+  const gameContext = useGameContext();
   const { dispatch } = gameContext;
 
   return (

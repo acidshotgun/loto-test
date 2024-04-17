@@ -1,8 +1,7 @@
-import { useContext } from "react";
 import { GameCell } from "../GameCell/GameCell";
+import { useGameContext } from "../../hooks/useGameContext";
 
 import styles from "./GameField.module.scss";
-import { GameContext } from "../../contexts/GameContext";
 
 interface IGameField {
   fieldId: number;
@@ -17,12 +16,7 @@ export const GameField = ({
   needChoose,
   cellCount,
 }: IGameField) => {
-  const gameContext = useContext(GameContext);
-
-  if (!gameContext) {
-    return null;
-  }
-
+  const gameContext = useGameContext();
   const { gameNumbers } = gameContext;
 
   return (
@@ -37,7 +31,7 @@ export const GameField = ({
           return (
             <GameCell
               value={i + 1}
-              isChoose={gameNumbers[fieldId - 1].some((num) => num === i + 1)}
+              isChoose={gameNumbers[fieldId - 1].includes(i + 1)}
               key={i}
               typeAction={typeAction}
             />

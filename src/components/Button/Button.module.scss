@@ -6,4 +6,8 @@
   border-radius: 40px;
   background-color: transparent;
   cursor: pointer;
+  &:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
 }

@@ -9,10 +9,6 @@
   align-items: center;
   font-size: 17px;
   cursor: pointer;
-  transition: 0.1s;
-  &:hover {
-    transform: scale(1.2);
-  }
 }
 
 .choosed_cell {

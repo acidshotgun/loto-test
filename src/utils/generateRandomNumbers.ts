@@ -2,12 +2,11 @@ export const generateRandomNumbers = (
   count: number,
   maxNum: number
 ): number[] => {
-  const randomNumbers: number[] = [];
-  while (randomNumbers.length < count) {
-    const randomNumber = Math.floor(Math.random() * maxNum) + 1;
-    if (!randomNumbers.includes(randomNumber)) {
-      randomNumbers.push(randomNumber);
-    }
+  const randomNumbers: Set<number> = new Set();
+
+  while (randomNumbers.size < count) {
+    randomNumbers.add(Math.floor(Math.random() * maxNum) + 1);
   }
-  return randomNumbers;
+
+  return [...randomNumbers];
 };
