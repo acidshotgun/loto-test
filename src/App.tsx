@@ -12,6 +12,8 @@ function App() {
     gameContext;
   const { isEnd, isWin } = gameStatus;
 
+  console.log(generatedNumbers);
+
   const toFinishGame = () => {
     const gameResult = compareGameResults(gameNumbers, generatedNumbers);
 
