@@ -1,13 +1,25 @@
+interface IResult {
+  result: boolean;
+  combination: number[][];
+}
+
 export const compareGameResults = (
-  arr1: number[][],
-  arr2: number[][]
-): boolean => {
-  for (let i = 0; i < arr1.length; i++) {
-    for (let j = 0; j < arr1[i].length; j++) {
-      if (arr1[i][j] !== arr2[i][j]) {
-        return false;
+  gameNumbers: number[][],
+  generatedNumbers: number[][]
+): IResult => {
+  const result: number[][] = [[], []];
+
+  for (let i = 0; i < generatedNumbers.length; i++) {
+    for (let k = 0; k < generatedNumbers[i].length; k++) {
+      if (generatedNumbers[i].includes(gameNumbers[i][k])) {
+        result[i].push(gameNumbers[i][k]);
       }
     }
   }
-  return true;
+
+  return {
+    result:
+      result[0].length >= 4 || (result[0].length >= 3 && result[1].length >= 1),
+    combination: result,
+  };
 };

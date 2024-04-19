@@ -1,7 +1,9 @@
-import { GameField } from "./components/GameField/GameField";
-import { Button } from "./components/Button/Button";
+import { useState } from "react";
 import { useGameContext } from "./hooks/useGameContext";
 import { compareGameResults } from "./utils/compareGameResults";
+import { GameField } from "./components/GameField/GameField";
+import { Button } from "./components/Button/Button";
+import { GameResult } from "./components/GameResult/GameResult";
 
 import styles from "./App.module.scss";
 import magic from "./icons/magic-wand.svg";
@@ -10,17 +12,23 @@ function App() {
   const gameContext = useGameContext();
   const { gameNumbers, generatedNumbers, dispatch, gameStatus, setGameStatus } =
     gameContext;
+  const [resultComination, setResultCombination] = useState<number[][] | null>(
+    null
+  );
   const { isEnd, isWin } = gameStatus;
 
-  console.log(generatedNumbers);
-
   const toFinishGame = () => {
-    const gameResult = compareGameResults(gameNumbers, generatedNumbers);
+    const { result, combination } = compareGameResults(
+      gameNumbers,
+      generatedNumbers
+    );
+
+    setResultCombination(() => combination);
 
     setGameStatus(() => {
       return {
         isEnd: true,
-        isWin: gameResult,
+        isWin: result,
       };
     });
   };
@@ -32,10 +40,13 @@ function App() {
         isWin: false,
       };
     });
+
     dispatch({
       type: "START_NEW_GAME",
       payload: NaN,
     });
+
+    setResultCombination(null);
   };
 
   return (
@@ -75,7 +86,11 @@ function App() {
             </div>
           </>
         ) : (
-          <h1>{isWin ? "Вы победили!!!" : "Вы проиграли..."}</h1>
+          <GameResult
+            isWin={isWin}
+            resultComination={resultComination}
+            generatedCombination={generatedNumbers}
+          />
         )}
         <Button
           text={isEnd ? "Новая игра" : "Показать результат"}
